@@ -10,7 +10,7 @@ variable "platform" {
 
 variable "region" {
     description = "The AWS region to create things in"
-    default = "us-west-2"
+    default = "eu-central-1"
 }
 
 variable "availability_zone" {
