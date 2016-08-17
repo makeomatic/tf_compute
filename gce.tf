@@ -87,7 +87,7 @@ variable "metadata" {
 }
 
 data "null_data_source" "gce" {
-    inputs = {
+    inputs {
         image  = "${coalesce(var.instance_image,  "${lookup(var.image_map, "${var.platform}")}")}"
         user = "${coalesce(var.user, "${lookup(var.user_map, var.platform)}")}"
     }
@@ -95,11 +95,11 @@ data "null_data_source" "gce" {
 
 # Metadata helper used to calculate sshKeys
 data "null_data_source" "metadata-default" {
-    inputs = {
+    inputs {
         sshKeys = "${join("\n",
             distinct(
             concat(
-                list("${var.user}:${var.pubkey_path}")
+                list("${var.user}:${var.pubkey_path}"),
                 var.sshKeys
             ))
         )}"
@@ -108,5 +108,5 @@ data "null_data_source" "metadata-default" {
 
 # Compound metadata
 data "null_data_source" "metadata" {
-    inputs = "${merge(var.metadata-default, var.metadata)}"
+    inputs = "${merge(data.null_data_source.metadata-default.outputs, var.metadata)}"
 }
