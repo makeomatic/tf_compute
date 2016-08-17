@@ -1,12 +1,12 @@
 
-variable "credentials" {
-    type = "string"
-    description = "Path to google account credentials file (account json)."
+variable "zone" {
+    description = "Zone where machine is created."
+    default = "europe-west1-d"
 }
 
-variable "zone" {
-    description = "The zone that the machine should be created in."
-    default = "europe-west1-d"
+variable "region" {
+    description = "Region where machine is created."
+    default = "europe-west1"
 }
 
 variable "machine_type" {
@@ -30,11 +30,14 @@ variable "advertise_interface" {
     default = "eth0"
 }
 
-variable "network_interface" {
-    description = "Networks to attach to the instance."
-    default = {
-        network = "default"
-    }
+variable "network" {
+    description = "Name of network to use."
+    default = "default"
+}
+
+variable "subnetwork" {
+    description = "Name of subnetwork to use."
+    default = ""
 }
 
 variable "metadata" {
@@ -99,7 +102,7 @@ data "null_data_source" "metadata-default" {
         sshKeys = "${join("\n",
             distinct(
             concat(
-                list("${var.user}:${var.pubkey_path}"),
+                list("${data.null_data_source.gce.outputs.user}:${replace(file(var.pubkey_path), "/\n$/", "")}"),
                 var.sshKeys
             ))
         )}"
