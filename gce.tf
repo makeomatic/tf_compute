@@ -62,8 +62,13 @@ variable "sshKeys" {
 }
 
 variable "pubkey_path" {
-    description = "Path to pub"
-    default = "default_value"
+    description = "Path to public key file."
+    default = "~/.ssh/google_compute_engine.pub"
+}
+
+variable "key_path" {
+    description = "Path to private key file."
+    default = "~/.ssh/google_compute_engine"
 }
 
 variable "user" {
