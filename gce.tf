@@ -40,6 +40,11 @@ variable "subnetwork" {
     default = ""
 }
 
+variable "nat_ip" {
+    description = "Ephemeral address value if not given chosen automatically."
+    default = ""
+}
+
 variable "metadata" {
     description = "Metadata key/value pairs to make available from within the instance."
     default = {}
