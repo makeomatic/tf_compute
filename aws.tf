@@ -139,7 +139,7 @@ data "null_data_source" "aws" {
 # ======= AWS compute outputs
 #
 
-output "advertise_interface" { value = "${var.advertise_interface}" }
+output "advertise_ipnum" { value = "${var.advertise_ipnum}" }
 output "instance_type" { value = "${var.instance_type}" }
 
 output "key_name" { value = "${var.key_name}" }
